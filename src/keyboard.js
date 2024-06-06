@@ -37,4 +37,4 @@ function runInteractiveConsole() {
 
 // Давай попробуем запустить этот скрипт!
 
-runInteractiveConsole();
+module.exports = { runInteractiveConsole };
