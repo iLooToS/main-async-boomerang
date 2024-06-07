@@ -1,5 +1,5 @@
 const fs = require('fs/promises');
-const { User, Game } = require('./db/models');
+const { User, Game, Rating } = require('./db/models');
 
 async function createGame(userId, gameScore, gameId = 0) {
   try {
@@ -44,12 +44,15 @@ async function getName(name) {
   }
 }
 
-async function updateRating() { // после смерти обновляет рейтинг
+async function updateRating(name) { // после смерти обновляет рейтинг
   try {
-    // возвращает массив с кол-вом изменненых данных
-    const result = await User.update(
-      { name: 'Alexandr' },
-      { where: { id: '123' } },
+    const users = await User.findOne({ where: { name }, attributes: ['rating_id', 'name'], raw: true });
+    const ratu = await Rating.findAll({ where: { score }, attributes: ['id', 'score'], raw: true });
+    const result = ratu.find(el => el.id === users.rating_id)
+    const ratu = result.score; 
+    const result = await Rating.update(
+      { score: ratu + 1 },
+      { where: { id: users.id } },
     );
     console.log(result);
   } catch ({ message }) {
