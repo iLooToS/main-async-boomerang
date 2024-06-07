@@ -49,13 +49,14 @@ class Game {
       this.check();
       this.regenerateTrack();
       this.view.render(this.track);
-      if (!this.check()) {
-        this.boomerang.moveRight();
-      }
+      this.boomerang.fly(this.enemy)
+      // if (!this.check()) {
+      //   this.boomerang.moveRight();
+      // }
 
-      if (this.check()) {
-        this.boomerang.moveLeft();
-      }
+      // if (this.check()) {
+      //   this.boomerang.moveLeft();
+      // }
     }, 50);
   }
 }

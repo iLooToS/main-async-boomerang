@@ -8,14 +8,18 @@ class Boomerang {
     this.position = 1;
   }
 
-  fly() {
-    this.moveRight();
-    this.moveLeft();
+  fly(enemy) {
+    if (enemy.skinId === 1) {
+      this.moveRight();
+    }
+    if (enemy.skinId === 0) {
+      this.moveLeft();
+    }
   }
 
   moveLeft() {
     // Идём влево.
-    this.position -= 10;
+    this.position -= 1;
   }
 
   moveRight() {
