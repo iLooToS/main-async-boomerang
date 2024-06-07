@@ -9,12 +9,24 @@ const keypress = require('keypress');
 
 // Какая-то функция.
 
-function runInteractiveConsole(game) {
+function runInteractiveConsole(game, boomerang) {
   const keyboard = {
-    a: () => game.hero.moveLeft(),
-    d: () => game.hero.moveRight(),
-    w: () => game.hero.moveUp(),
-    s: () => game.hero.moveDown(),
+    a: () => {
+      game.hero.moveLeft();
+      game.boomerang.moveLeft();
+    },
+    d: () => {
+      game.hero.moveRight();
+      game.boomerang.moveRight();
+    },
+    w: () => {
+      game.hero.moveUp();
+      game.boomerang.moveUp();
+    },
+    s: () => {
+      game.hero.moveDown();
+      game.boomerang.moveDown();
+    },
     e: () => game.launchBoomerang(),
     y: () => console.log('y'),
   };
