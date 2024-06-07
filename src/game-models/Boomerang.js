@@ -5,10 +5,12 @@
 class Boomerang {
   constructor() {
     this.skin = '🌀';
-    this.position = 1;
+    this.position = 0;
+    this.ifFlying = false;
   }
 
   fly(enemy) {
+    this.ifFlying = true;
     if (enemy.skinId === 1) {
       this.moveRight();
     }

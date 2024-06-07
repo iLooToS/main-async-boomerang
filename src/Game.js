@@ -19,6 +19,9 @@ class Game {
     this.enemy = new Enemy();
     this.view = new View();
     this.track = [];
+    this.track1 = [];
+    this.track2 = [];
+    this.track3 = [];
     this.regenerateTrack();
   }
 
@@ -26,9 +29,28 @@ class Game {
     // Сборка всего необходимого (герой, враг(и), оружие)
     // в единую структуру данных
     this.track = (new Array(this.trackLength)).fill(' ');
-    this.track[this.hero.position] = this.hero.skin;
+    this.track1 = (new Array(this.trackLength)).fill(' ');
+    this.track2 = (new Array(this.trackLength)).fill(' ');
+    this.track3 = (new Array(this.trackLength)).fill(' ');
+
     this.track[this.enemy.position] = this.enemy.skin;
     this.track[this.boomerang.position] = this.boomerang.skin;
+    this.track1[this.enemy.position] = this.enemy.skin;
+    this.track2[this.enemy.position] = this.enemy.skin;
+    this.track3[this.enemy.position] = this.enemy.skin;
+
+    if (this.hero.up === 0) {
+      this.track[this.hero.position] = this.hero.skin;
+    }
+    if (this.hero.down === 1) {
+      this.track1[this.hero.position] = this.hero.skin;
+    }
+    if (this.hero.down === 2) {
+      this.track2[this.hero.position] = this.hero.skin;
+    }
+    if (this.hero.down === 3) {
+      this.track3[this.hero.position] = this.hero.skin;
+    }
   }
 
   check() {
@@ -41,30 +63,25 @@ class Game {
       return true;
     }
     if (!(this.hero.position === this.boomerang.position)) {
-      this.boomerang.fly(this.enemy);
+      this.launchBoomerang();
       return true;
-    } else { this.boomerang.position = null; }
-
-
+    } this.boomerang.position = null;
     return false;
+  }
+
+  launchBoomerang() {
+    if (!this.boomerang.ifFlying) {
+      this.boomerang.ifFlying = true;
+      this.boomerang.position = this.hero.position + 1;
+      this.boomerang.fly(this.enemy);
+    }
   }
 
   play() {
     setInterval(() => {
-      // Let's play!
       this.check();
       this.regenerateTrack();
-      this.view.render(this.track);
-      // if (!(this.hero.position === this.boomerang.position)) {
-      //   this.boomerang.fly(this.enemy);
-      // } else { this.boomerang.position = 1; }
-      // if (!this.check()) {
-      //   this.boomerang.moveRight();
-      // }
-
-      // if (this.check()) {
-      //   this.boomerang.moveLeft();
-      // }
+      this.view.render(this.track, this.track1, this.track2, this.track3);
     }, 60);
   }
 }
