@@ -15,7 +15,7 @@ function runInteractiveConsole(game) {
     d: () => game.hero.moveRight(),
     w: () => game.hero.moveUp(),
     s: () => game.hero.moveDown(),
-    t: () => console.log('t'),
+    e: () => game.launchBoomerang(),
     y: () => console.log('y'),
   };
   game.play();
