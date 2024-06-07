@@ -11,6 +11,7 @@ module.exports = {
       name: {
         type: Sequelize.TEXT,
         allowNull: false,
+        unique: true,
       },
       rating_id: {
         type: Sequelize.INTEGER,
