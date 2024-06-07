@@ -40,6 +40,12 @@ class Game {
       this.enemy.die();
       return true;
     }
+    if (!(this.hero.position === this.boomerang.position)) {
+      this.boomerang.fly(this.enemy);
+      return true;
+    } else { this.boomerang.position = null; }
+
+
     return false;
   }
 
@@ -49,14 +55,17 @@ class Game {
       this.check();
       this.regenerateTrack();
       this.view.render(this.track);
-      if (!this.check()) {
-        this.boomerang.moveRight();
-      }
+      // if (!(this.hero.position === this.boomerang.position)) {
+      //   this.boomerang.fly(this.enemy);
+      // } else { this.boomerang.position = 1; }
+      // if (!this.check()) {
+      //   this.boomerang.moveRight();
+      // }
 
-      if (this.check()) {
-        this.boomerang.moveLeft();
-      }
-    }, 50);
+      // if (this.check()) {
+      //   this.boomerang.moveLeft();
+      // }
+    }, 60);
   }
 }
 
