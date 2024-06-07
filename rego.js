@@ -5,7 +5,6 @@ async function createUser(name) {
   try {
     const data = {};
     data.name = name.trim();
-    data.score = 0;
     await User.create(data);
   } catch ({ message }) {
     console.log(`error: ${message}`);
@@ -14,13 +13,11 @@ async function createUser(name) {
 
 async function getName(name) {
   try {
-    const users = await User.findAll({ attributes: ['name'], raw: true });
-    users.filter(async (el) => {
-      if (!(el.includes(name))) {
-        await createUser(name);
-      }
-      return name;
-    });
+    const users = await User.findOne({ where: { name }, attributes: ['id', 'name'], raw: true });
+    console.log(users);
+    if (users === null) {
+      await createUser(name);
+    }
   } catch ({ message }) {
     console.log(`error: ${message}`);
   }
