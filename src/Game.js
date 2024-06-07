@@ -6,7 +6,7 @@ const Hero = require('./game-models/Hero');
 const Enemy = require('./game-models/Enemy');
 const Boomerang = require('./game-models/Boomerang');
 const View = require('./View');
-const { runInteractiveConsole } = require('./keyboard');
+const runInteractiveConsole = require('./keyboard');
 
 // Основной класс игры.
 // Тут будут все настройки, проверки, запуск.
