@@ -1,10 +1,10 @@
 const fs = require('fs/promises');
-// const { User } = require(укажи путь);
+const { User } = require('./db/models');
 
 async function createUser(name) {
   try {
     const data = {};
-    data.name = name;
+    data.name = name.trim();
     data.score = 0;
     await User.create(data);
   } catch ({ message }) {
@@ -14,11 +14,13 @@ async function createUser(name) {
 
 async function getName(name) {
   try {
-    const users = await User.findAll({ attributes: ['ratung_id', 'name'], raw: true });
-    if (users.includes(name.trim())) {
-      const user = await User.findOne({ where: { id: userInDb.id }, raw: true });
-      console.log(user);
-    } else (await createUser(name.trim()));
+    const users = await User.findAll({ attributes: ['name'], raw: true });
+    users.filter(async (el) => {
+      if (!(el.includes(name))) {
+        await createUser(name);
+      }
+      return name;
+    });
   } catch ({ message }) {
     console.log(`error: ${message}`);
   }
@@ -46,4 +48,6 @@ async function deleteUser(name) { // можно удалить пользова�
     console.log(message);
   }
 }
-module.exports = { createUser, getName, deleteUser };
+module.exports = {
+  createUser, getName, updateRating, deleteUser,
+};
