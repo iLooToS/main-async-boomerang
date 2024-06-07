@@ -5,29 +5,69 @@
 class Boomerang {
   constructor(args = {}) {
     this.skin = '🌀';
-    this.position = 0;
+    this.position = 1;
     this.up = args.up;
     this.ifFlying = false;
   }
 
-  fly(enemy) {
+  fly(num) {
     this.ifFlying = true;
-    if (enemy.isDead === false) {
-      this.moveRight();
-    }
-    if (enemy.isDead === true) {
-      this.moveLeft();
-    }
+    this.up = num;
+    this.moveRight();
+    this.moveLeft();
   }
 
   moveLeft() {
-    // Идём влево.
+    if (this.position <= 0) {
+      this.postion = 0;
+    }
     this.position -= 1;
   }
 
   moveRight() {
     // Идём вправо.
     this.position += 1;
+  }
+
+  moveUp() {
+    if (this.up === 1) {
+      this.up -= 1;
+      this.down -= 1;
+      return;
+    }
+    if (this.up === 2) {
+      this.up -= 1;
+      this.down -= 1;
+      return;
+    }
+    if (this.up === 3) {
+      this.up -= 1;
+      this.down -= 1;
+      return;
+    }
+    if (this.up === 0) {
+      return;
+    }
+  }
+
+  moveDown() {
+    if (this.down === 1) {
+      this.up += 1;
+      this.down += 1;
+      return;
+    }
+    if (this.down === 2) {
+      this.up += 1;
+      this.down += 1;
+      return;
+    }
+    if (this.down === 3) {
+      return;
+    }
+    if (this.up === 0) {
+      this.down += 1;
+      this.up += 1;
+    }
   }
 }
 

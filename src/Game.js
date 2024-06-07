@@ -15,7 +15,7 @@ class Game {
   constructor({ trackLength }) {
     this.trackLength = trackLength;
     this.boomerang = new Boomerang({ up: 0 });
-    this.hero = new Hero({ position: 0 }); // Герою можно аргументом передать бумеранг.
+    this.hero = new Hero(); // Герою можно аргументом передать бумеранг.
     this.enemy = new Enemy({ up: 0 });
     this.enemy1 = new Enemy({ up: 1 });
     this.enemy2 = new Enemy({ up: 2 });
@@ -45,8 +45,6 @@ class Game {
     this.enemy2.isShow = true;
     this.enemy3.isShow = true;
 
-    this.track[this.boomerang.position] = this.boomerang.skin;
-
     if (this.hero.up === 0) {
       this.track[this.hero.position] = this.hero.skin;
     }
@@ -59,6 +57,19 @@ class Game {
     if (this.hero.down === 3) {
       this.track3[this.hero.position] = this.hero.skin;
     }
+
+    if (this.boomerang.up === 0) {
+      this.track[this.boomerang.position] = this.boomerang.skin;
+    }
+    if (this.boomerang.down === 1) {
+      this.track[this.boomerang.position] = this.boomerang.skin;
+    }
+    if (this.boomerang.down === 2) {
+      this.track[this.boomerang.position] = this.boomerang.skin;
+    }
+    if (this.boomerang.down === 3) {
+      this.track[this.boomerang.position] = this.boomerang.skin;
+    }
   }
 
   check() {
@@ -69,32 +80,27 @@ class Game {
 
     if (this.enemy.position === this.boomerang.position || this.enemy.position === this.boomerang.position + 1) {
       this.enemy.die();
-      return true;
     }
     if (this.enemy1.position === this.boomerang.position || this.enemy1.position === this.boomerang.position + 1) {
       this.enemy1.die();
-      return true;
     }
     if (this.enemy2.position === this.boomerang.position || this.enemy2.position === this.boomerang.position + 1) {
       this.enemy2.die();
-      return true;
     }
     if (this.enemy3.position === this.boomerang.position || this.enemy3.position === this.boomerang.position + 1) {
       this.enemy3.die();
-      return true;
     }
     if (!(this.hero.position === this.boomerang.position)) {
-      return true;
-    } this.boomerang.position = null;
-    return false;
+    }
+    this.boomerang.position = this.hero.position + 1;
+    this.boomerang.up = this.hero.up;
   }
 
-  launchBoomerang() {
+  launchBoomerang(up) {
     if (!this.boomerang.ifFlying) {
       this.boomerang.ifFlying = true;
-      this.boomerang.fly(this.enemy);
+      this.boomerang.fly(up);
     }
-    this.boomerang.fly(this.enemy);
   }
 
   play() {
@@ -106,9 +112,11 @@ class Game {
       this.enemy1.moveLeft();
       this.enemy2.moveLeft();
       this.enemy3.moveLeft();
-      if (this.boomerang.ifFlying === true) {
-        this.launchBoomerang();
+      if (this.boomerang.ifFlying === false) {
+        this.launchBoomerang(this.hero.up);
       }
+      console.log(this.boomerang.position);
+      console.log(this.boomerang.ifFlying);
       console.log(this.hero.position, this.hero.up, this.hero.down);
       console.log(this.enemy.position, this.enemy.up);
       console.log(this.enemy1.position, this.enemy1.up);
