@@ -16,7 +16,6 @@ class Hero {
   }
 
   moveRight() {
-    // Идём вправо.
     this.position += 1;
   }
 
@@ -61,8 +60,8 @@ class Hero {
     }
   }
 
-  attack(enemy) {
-    this.boomerang.fly(enemy);
+  attack() {
+    this.boomerang.fly();
   }
 
   die() {

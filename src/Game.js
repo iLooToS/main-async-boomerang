@@ -14,12 +14,12 @@ const runInteractiveConsole = require('./keyboard');
 class Game {
   constructor({ trackLength }) {
     this.trackLength = trackLength;
-    this.boomerang = new Boomerang({ up: 0 });
     this.hero = new Hero(); // Герою можно аргументом передать бумеранг.
-    this.enemy = new Enemy({ up: 0 });
-    this.enemy1 = new Enemy({ up: 1 });
-    this.enemy2 = new Enemy({ up: 2 });
-    this.enemy3 = new Enemy({ up: 3 });
+    this.boomerang = new Boomerang();
+    this.enemy = new Enemy({ up: 0, boomerangPosition: this.boomerang.position });
+    this.enemy1 = new Enemy({ up: 1, boomerangPosition: this.boomerang.position });
+    this.enemy2 = new Enemy({ up: 2, boomerangPosition: this.boomerang.position });
+    this.enemy3 = new Enemy({ up: 3, boomerangPosition: this.boomerang.position });
     this.view = new View();
     this.track = [];
     this.track1 = [];
@@ -27,6 +27,10 @@ class Game {
     this.track3 = [];
     this.regenerateTrack();
   }
+
+  // launchBoomerang() {
+  //   this.boomerang.fly();
+  // }
 
   regenerateTrack() {
     // Сборка всего необходимого (герой, враг(и), оружие)
@@ -61,14 +65,14 @@ class Game {
     if (this.boomerang.up === 0) {
       this.track[this.boomerang.position] = this.boomerang.skin;
     }
-    if (this.boomerang.down === 1) {
-      this.track[this.boomerang.position] = this.boomerang.skin;
+    if (this.boomerang.up === 1) {
+      this.track1[this.boomerang.position] = this.boomerang.skin;
     }
-    if (this.boomerang.down === 2) {
-      this.track[this.boomerang.position] = this.boomerang.skin;
+    if (this.boomerang.up === 2) {
+      this.track2[this.boomerang.position] = this.boomerang.skin;
     }
-    if (this.boomerang.down === 3) {
-      this.track[this.boomerang.position] = this.boomerang.skin;
+    if (this.boomerang.up === 3) {
+      this.track3[this.boomerang.position] = this.boomerang.skin;
     }
   }
 
@@ -92,15 +96,7 @@ class Game {
     }
     if (!(this.hero.position === this.boomerang.position)) {
     }
-    this.boomerang.position = this.hero.position + 1;
     this.boomerang.up = this.hero.up;
-  }
-
-  launchBoomerang(up) {
-    if (!this.boomerang.ifFlying) {
-      this.boomerang.ifFlying = true;
-      this.boomerang.fly(up);
-    }
   }
 
   play() {
@@ -112,17 +108,22 @@ class Game {
       this.enemy1.moveLeft();
       this.enemy2.moveLeft();
       this.enemy3.moveLeft();
-      if (this.boomerang.ifFlying === false) {
-        this.launchBoomerang(this.hero.up);
+      if (this.boomerang.ifFlying === true) {
+        this.boomerang.fly();
       }
-      console.log(this.boomerang.position);
+      if (this.enemy.isDead === true) {
+        this.boomerang.moveLeft(this.hero.position);
+      }
+      console.log(this.boomerang.position, this.enemy.position);
+      console.log(this.boomerang.up);
+      console.log(this.boomerang.down);
       console.log(this.boomerang.ifFlying);
       console.log(this.hero.position, this.hero.up, this.hero.down);
-      console.log(this.enemy.position, this.enemy.up);
-      console.log(this.enemy1.position, this.enemy1.up);
-      console.log(this.enemy2.position, this.enemy2.up);
-      console.log(this.enemy3.position, this.enemy3.up);
-      console.log(this.enemy1.isShow, this.enemy3.isShow);
+      // console.log(this.enemy.position, this.enemy.up);
+      // console.log(this.enemy1.position, this.enemy1.up);
+      // console.log(this.enemy2.position, this.enemy2.up);
+      // console.log(this.enemy3.position, this.enemy3.up);
+      // console.log(this.enemy1.isShow, this.enemy3.isShow);
       console.log(this.boomerang.position);
     }, 100);
   }
