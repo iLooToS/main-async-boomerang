@@ -27,7 +27,7 @@ function runInteractiveConsole(game, boomerang) {
       game.hero.moveDown();
       game.boomerang.moveDown();
     },
-    e: () => game.launchBoomerang(),
+    e: () => game.boomerang.fly(),
     y: () => console.log('y'),
   };
   game.play();
