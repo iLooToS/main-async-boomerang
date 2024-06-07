@@ -3,7 +3,7 @@
 class Enemy {
   constructor() {
     this.generateSkin();
-    this.position = Math.floor(Math.random() * 50);
+    this.position = Math.floor(Math.random() * 40);
   }
 
   generateSkin() {
@@ -18,7 +18,7 @@ class Enemy {
   }
 
   die() {
-    this.position = '?';
+    this.position = ' ';
     this.skinId = 0;
     console.log('Enemy is dead!');
   }
