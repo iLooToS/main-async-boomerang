@@ -3,8 +3,6 @@
 const Game = require('./src/Game');
 
 
-if()
-
 
 
 // Инициализация игры с настройками.
