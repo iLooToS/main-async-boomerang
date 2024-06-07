@@ -5,7 +5,7 @@ const Game = require('./src/Game');
 const { getName } = require('./rego');
 const runInteractiveConsole = require('./src/keyboard');
 
-// getName(process.argv[2]);
+getName(process.argv[2]);
 
 // Инициализация игры с настройками.
 const game = new Game({
@@ -13,4 +13,4 @@ const game = new Game({
 });
 
 // Запуск игры.
-runInteractiveConsole(game);
+// runInteractiveConsole(game);
