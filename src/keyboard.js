@@ -13,8 +13,8 @@ function runInteractiveConsole(game) {
   const keyboard = {
     a: () => game.hero.moveLeft(),
     d: () => game.hero.moveRight(),
-    e: () => console.log('e'),
-    r: () => console.log('r'),
+    w: () => game.hero.moveUp(),
+    s: () => game.hero.moveDown(),
     t: () => console.log('t'),
     y: () => console.log('y'),
   };
